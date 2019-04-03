@@ -21,10 +21,22 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="typeAliasesPackage" value="com.pinyougou.pojo"/>
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <props>
+                            <prop key="helperDialect">mysql</prop>
+                            <prop key="rowBoundsWithCount">true</prop>
+                        </props>
+                    </property>
+                </bean>
+            </array>
+        </property>
         <property name="mapperLocations" value="classpath:mappers/**/*.xml"/>
     </bean>
 
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.pinyougou.mapper"/>
     </bean>
 

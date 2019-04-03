@@ -8,7 +8,7 @@
     <artifactId>pinyougou</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>pinyougou-commom</module>
+        <module>pinyougou-common</module>
         <module>pinyougou-pojo</module>
         <module>pinyougou-mapper</module>
         <module>pinyougou-interface</module>

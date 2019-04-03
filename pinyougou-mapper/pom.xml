@@ -42,7 +42,11 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-    </dependency>
+        </dependency>
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+        </dependency>
         <!-- pinyougou-pojo -->
         <dependency>
             <groupId>com.pinyougou</groupId>
