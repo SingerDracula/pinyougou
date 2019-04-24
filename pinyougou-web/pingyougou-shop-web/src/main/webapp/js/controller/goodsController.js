@@ -183,4 +183,50 @@ app.controller('goodsController', function($scope, $controller, baseService) {
     }
 
     $scope.status = ['未审核','审核通过','审核未通过','关闭'];
+
+    $scope.updateStatus = function (status) {
+        if ($scope.ids.length>0){
+            baseService.sendGet("/goods/updateStatus?ids="+$scope.ids+"&status="+status).then(function (value) {
+                if (value) {
+                    $scope.reload();
+                    $scope.ids = [];
+                }else {
+                    alert("操作失败");
+                }
+            })
+        } else {
+            alert("请选择");
+        }
+
+    }
+
+    $scope.delete = function () {
+        if ($scope.ids.length>0){
+            baseService.sendGet("/goods/delete?ids="+$scope.ids).then(function (value) {
+                if(value){
+                    $scope.reload();
+                    $scope.ids = [];
+                }else {
+                    alert("删除失败");
+                }
+            })
+        }else {
+            alert("请选择");
+        }
+    }
+
+    $scope.updateMarket = function (status) {
+        if ($scope.ids.length>0){
+            baseService.sendGet("/goods/updateMarket?ids="+$scope.ids+"&status="+status).then(function (value) {
+                if (value) {
+                    $scope.reload();
+                    $scope.ids = [];
+                }else {
+                    alert("操作失败");
+                }
+            })
+        } else {
+            alert("请选择");
+        }
+    }
 })

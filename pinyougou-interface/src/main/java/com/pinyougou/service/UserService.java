@@ -3,11 +3,7 @@ package com.pinyougou.service;
 import com.pinyougou.pojo.User;
 import java.util.List;
 import java.io.Serializable;
-/**
- * UserService 服务接口
- * @date 2019-03-27 16:06:13
- * @version 1.0
- */
+
 public interface UserService {
 
 	/** 添加方法 */
@@ -31,4 +27,7 @@ public interface UserService {
 	/** 多条件分页查询 */
 	List<User> findByPage(User user, int page, int rows);
 
+	Boolean sendCode(String phone);
+
+	boolean checkCode(String phone, String code);
 }

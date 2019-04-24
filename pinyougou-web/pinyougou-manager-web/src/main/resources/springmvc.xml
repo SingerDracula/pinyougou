@@ -37,4 +37,11 @@ http://www.springframework.org/schema/context/spring-context.xsd">
     <dubbo:registry protocol="zookeeper" address="192.168.126.200:2181"/>
     <!-- 配置采用包扫描来引用服务，产生服务接口的代理对象 -->
     <dubbo:annotation package="com.pinyougou.manager.controller"/>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="maxUploadSize" value="2097152"/>
+    </bean>
+
+    <context:property-placeholder location="classpath:application.properties"/>
 </beans>

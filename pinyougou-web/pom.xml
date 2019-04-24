@@ -15,6 +15,13 @@
     <modules>
         <module>pinyougou-manager-web</module>
         <module>pingyougou-shop-web</module>
+        <module>pinyougou-portal-web</module>
+        <module>pinyougou-search-web</module>
+        <module>pinyougou.item-web</module>
+        <module>pinyougou-sms-web</module>
+        <module>pinyougou-user-web</module>
+        <module>pinyougou-cart-web</module>
+        <module>pinyougou-seckill-web</module>
     </modules>
 
     <properties>

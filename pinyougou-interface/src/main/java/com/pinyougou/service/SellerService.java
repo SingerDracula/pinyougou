@@ -33,4 +33,5 @@ public interface SellerService {
 	PageResult findByPage(Seller seller, int page, int rows);
 
 	void updateStatusBySellerId(String sellerId, String status);
+
 }

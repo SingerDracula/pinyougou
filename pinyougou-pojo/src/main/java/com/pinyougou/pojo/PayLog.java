@@ -99,4 +99,19 @@ public class PayLog implements Serializable{
     public void setPayType(String payType) {
         this.payType = payType == null ? null : payType.trim();
     }
+
+    @Override
+    public String toString() {
+        return "PayLog{" +
+                "outTradeNo='" + outTradeNo + '\'' +
+                ", createTime=" + createTime +
+                ", payTime=" + payTime +
+                ", totalFee=" + totalFee +
+                ", userId='" + userId + '\'' +
+                ", transactionId='" + transactionId + '\'' +
+                ", tradeState='" + tradeState + '\'' +
+                ", orderList='" + orderList + '\'' +
+                ", payType='" + payType + '\'' +
+                '}';
+    }
 }

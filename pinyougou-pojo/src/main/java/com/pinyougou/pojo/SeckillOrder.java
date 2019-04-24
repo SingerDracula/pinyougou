@@ -130,4 +130,22 @@ public class SeckillOrder implements Serializable{
     public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
     }
+
+    @Override
+    public String toString() {
+        return "SeckillOrder{" +
+                "id=" + id +
+                ", seckillId=" + seckillId +
+                ", money=" + money +
+                ", userId='" + userId + '\'' +
+                ", sellerId='" + sellerId + '\'' +
+                ", createTime=" + createTime +
+                ", payTime=" + payTime +
+                ", status='" + status + '\'' +
+                ", receiverAddress='" + receiverAddress + '\'' +
+                ", receiverMobile='" + receiverMobile + '\'' +
+                ", receiver='" + receiver + '\'' +
+                ", transactionId='" + transactionId + '\'' +
+                '}';
+    }
 }

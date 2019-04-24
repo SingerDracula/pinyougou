@@ -4,5 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pinyougou.mapper.ContentMapper">
-
+	<select id="findAll" resultType="Content">
+		select * from tb_content
+	</select>
 </mapper>

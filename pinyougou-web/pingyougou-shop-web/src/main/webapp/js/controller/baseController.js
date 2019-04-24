@@ -1,5 +1,5 @@
 /** 定义基础的控制器 */
-app.controller("baseController", function($scope){
+app.controller("baseController", function($scope,baseService){
 
     // 定义分页组件需要参数对象
     $scope.paginationConf = {
@@ -58,6 +58,12 @@ app.controller("baseController", function($scope){
         // 返回数组中的元素用逗号分隔的字符串
         return resArr.join(",");
     };
+
+    $scope.showLoginName = function () {
+        baseService.sendGet("/getLoginName").then(function (value) {
+            $scope.loginName = value.data.loginName;
+        })
+    }
     
 
 });

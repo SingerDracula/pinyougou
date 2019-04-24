@@ -1,8 +1,9 @@
 /** 定义控制器层 */
-app.controller('sellerController', function($scope, $controller, baseService){
+app.controller('sellerController', function($scope,$http, $controller, baseService){
 
     /** 指定继承baseController */
     $controller('baseController',{$scope:$scope});
+
 
     /** 查询条件对象 */
     $scope.searchEntity = {};

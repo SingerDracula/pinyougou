@@ -130,4 +130,22 @@ public class Address implements Serializable{
     public void setAlias(String alias) {
         this.alias = alias == null ? null : alias.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", userId='" + userId + '\'' +
+                ", provinceId='" + provinceId + '\'' +
+                ", cityId='" + cityId + '\'' +
+                ", townId='" + townId + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", address='" + address + '\'' +
+                ", contact='" + contact + '\'' +
+                ", isDefault='" + isDefault + '\'' +
+                ", notes='" + notes + '\'' +
+                ", createDate=" + createDate +
+                ", alias='" + alias + '\'' +
+                '}';
+    }
 }

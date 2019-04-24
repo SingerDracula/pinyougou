@@ -26,7 +26,7 @@ public interface AddressService {
 	Address findOne(Serializable id);
 
 	/** 查询全部 */
-	List<Address> findAll();
+	List<Address> findAll(String userId);
 
 	/** 多条件分页查询 */
 	List<Address> findByPage(Address address, int page, int rows);

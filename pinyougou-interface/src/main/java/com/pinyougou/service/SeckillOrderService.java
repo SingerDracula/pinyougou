@@ -1,5 +1,6 @@
 package com.pinyougou.service;
 
+import com.pinyougou.pojo.PayLog;
 import com.pinyougou.pojo.SeckillOrder;
 import java.util.List;
 import java.io.Serializable;
@@ -31,4 +32,13 @@ public interface SeckillOrderService {
 	/** 多条件分页查询 */
 	List<SeckillOrder> findByPage(SeckillOrder seckillOrder, int page, int rows);
 
+    void submitOrder(Long id, String username);
+
+	PayLog getPayLogByRedis(String user);
+
+	void updateStatus(String outTradeNo, String transaction_id);
+
+	List<SeckillOrder> findTimeOutOrder();
+
+	void deleteFromRedis(SeckillOrder seckillOrder);
 }

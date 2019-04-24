@@ -28,6 +28,7 @@ public class SellerServiceImpl implements SellerService {
 
     @Override
     public void update(Seller seller) {
+        sellerMapper.updateByPrimaryKeySelective(seller);
 
     }
 
@@ -70,4 +71,5 @@ public class SellerServiceImpl implements SellerService {
         seller.setStatus(status);
         sellerMapper.updateByPrimaryKeySelective(seller);
     }
+
 }

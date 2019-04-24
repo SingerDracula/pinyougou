@@ -4,16 +4,24 @@
 	    <!-- 页面meta -->
 	    <meta charset="utf-8">
 	    <title>广告管理</title>
-	    <link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css"/>
-	    <link rel="stylesheet" href="/plugins/adminLTE/css/AdminLTE.css"/>
-	    <link rel="stylesheet" href="/plugins/adminLTE/css/skins/_all-skins.min.css"/>
-	    <link rel="stylesheet" href="/css/style.css"/>
+		<link rel="stylesheet" href="/plugins/bootstrap/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="/plugins/adminLTE/css/AdminLTE.css"/>
+		<link rel="stylesheet" href="/plugins/adminLTE/css/skins/_all-skins.min.css"/>
+		<link rel="stylesheet" href="/css/style.css"/>
+		<link rel="stylesheet" href="/plugins/angularjs/pagination.css"/>
 		<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
-	    <script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
+		<script src="/plugins/bootstrap/js/bootstrap.min.js"></script>
+		<script src="/plugins/angularjs/angular.min.js"></script>
+		<script src="/plugins/angularjs/pagination.js"></script>
+		<script src="/js/base-pagination.js"></script>
+		<script src="/js/service/baseService.js"></script>
+		<script src="/js/controller/baseController.js"></script>
+		<script src="/js/controller/contentController.js"></script>
 
 	</head>
 
-	<body class="hold-transition skin-red sidebar-mini">
+	<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="contentController"
+		  ng-init="findAllCategory()">
 		<!-- .box-body -->
 		<div class="box-header with-border">
 			<h3 class="box-title">广告管理</h3>
@@ -29,11 +37,11 @@
 							<button type="button" class="btn btn-default" 
 									ng-click="entity={}"
 									title="新建"
-								data-toggle="modal" data-target="#editModal">
+								data-toggle="modal" data-target="#editModal" ng-click="entity={}" >
 								<i class="fa fa-file-o"></i> 新建
 							</button>
 							<button type="button" class="btn btn-default"
-									title="删除">
+									title="删除" ng-click="delete()">
 								<i class="fa fa-trash-o"></i> 删除
 							</button>
 							<button type="button" class="btn btn-default" title="刷新"
@@ -65,25 +73,30 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td><input type="checkbox"
+						<tr ng-repeat="entity in dataList">
+							<td><input type="checkbox" ng-click="updateSelection($event,entity.id)"
 									   ></td>
 							<td>{{entity.id}}</td>
 							<td>{{entity.categoryId}}</td>
 							<td>{{entity.title}}</td>
 							<td>{{entity.url}}</td>
-							<td><img src="{{entity.pic}}" width="100px" height="50px"></td>
+							<td><img ng-src="{{entity.pic}}" width="100px" height="50px"></td>
 							<td>{{entity.sortOrder}}</td>
-							<td>{{status[entity.status]}}</td>
+							<td>
+							<span ng-if="entity.status==0">无效</span>
+							<span ng-if="entity.status==1">有效</span>
+
+
+						    </td>
 							<td class="text-center">
 								<button type="button" class="btn bg-olive btn-xs"
-										data-toggle="modal" data-target="#editModal">修改</button>
+										data-toggle="modal" data-target="#editModal" ng-click="show(entity)">修改</button>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 				<!--数据列表/-->
-				
+				<tm-pagination conf="paginationConf"/>
 			</div>
 			<!-- 数据表格 /-->
 		</div>
@@ -105,7 +118,9 @@
 							<tr>
 								<td>广告分类</td>
 								<td>
-									<select class="form-control">
+									<select class="form-control"
+											ng-options="c.id as c.name for c in contentCategoryList"
+											ng-model="entity.categoryId">
 										<option value="">==请选择广告分类==</option>
 									</select>
 								</td>
@@ -132,8 +147,9 @@
 									<table>
 										<tr>
 											<td><input type="file" id="file" />
-												<button class="btn btn-primary" type="button">上传</button></td>
-											<td><img src="" width="200px"
+												<button class="btn btn-primary" type="button" ng-click="uploadFile()">
+													上传</button></td>
+											<td><img ng-src="{{entity.pic}}" width="200px"
 												height="100px"></td>
 										</tr>
 									</table>
@@ -142,14 +158,15 @@
 							<tr>
 								<td>是否有效</td>
 								<td><input type="checkbox" class="icheckbox_square-blue"
-										   ng-model="entity.status"/>
+										   ng-click="status($event)" ng-checked="entity.status == 1" ng-true-value="1"
+										   ng-false-value="0"/>
 								</td>
 							</tr>
 						</table>
 					</div>
 					<div class="modal-footer">
 						<button class="btn btn-success" data-dismiss="modal"
-								aria-hidden="true">保存</button>
+								aria-hidden="true" ng-click="saveOrUpdate()">保存</button>
 						<button class="btn btn-default" data-dismiss="modal"
 								aria-hidden="true">关闭</button>
 					</div>

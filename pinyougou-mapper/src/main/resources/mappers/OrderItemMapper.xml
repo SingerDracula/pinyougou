@@ -4,5 +4,8 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.pinyougou.mapper.OrderItemMapper">
+	<select id="updateSaleCount" resultType="map">
+		SELECT item_id AS id,title,COUNT(num) AS item_salecount FROM tb_order_item GROUP BY id
+	</select>
 
 </mapper>

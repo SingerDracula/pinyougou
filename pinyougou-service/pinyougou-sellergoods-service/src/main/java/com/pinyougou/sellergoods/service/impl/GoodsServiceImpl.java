@@ -8,16 +8,16 @@ import com.github.pagehelper.PageInfo;
 import com.pinyougou.common.pojo.PageResult;
 import com.pinyougou.mapper.*;
 import com.pinyougou.pojo.Goods;
+import com.pinyougou.pojo.GoodsDesc;
 import com.pinyougou.pojo.Item;
 import com.pinyougou.pojo.ItemCat;
 import com.pinyougou.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service(interfaceName = "com.pinyougou.service.GoodsService")
 @Transactional
@@ -95,7 +95,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public void deleteAll(Serializable[] ids) {
-
+        goodsMapper.updateDeleteStatus(ids);
     }
 
     @Override
@@ -127,5 +127,46 @@ public class GoodsServiceImpl implements GoodsService {
             map.put("category3Name",category3Id != null?category3Id.getName():"");
         }
         return new PageResult(pageInfo.getTotal(),pageInfo.getList());
+    }
+
+    @Override
+    public void updateStatus(Long[] ids, String status) {
+        goodsMapper.updateStatus(ids,status);
+    }
+
+    @Override
+    public void updateMarket(Long[] ids, String status) {
+        goodsMapper.updateMarket(ids,status);
+    }
+
+
+    public Map<String, Object> getGoods(Long goodsId) {
+        Map<String, Object> map = new HashMap<>();
+        Goods goods = goodsMapper.selectByPrimaryKey(goodsId);
+        map.put("goods",goods);
+        GoodsDesc goodsDesc = goodsDescMapper.selectByPrimaryKey(goodsId);
+        map.put("goodsDesc",goodsDesc);
+        if(goods != null && goods.getCategory3Id() != null){
+            map.put("itemCat3",itemCatMapper.selectByPrimaryKey(goods.getCategory3Id()).getName());
+            map.put("itemCat2",itemCatMapper.selectByPrimaryKey(goods.getCategory2Id()).getName());
+            map.put("itemCat1",itemCatMapper.selectByPrimaryKey(goods.getCategory1Id()).getName());
+        }
+
+        Example example = new Example(Item.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("status","1");
+        criteria.andEqualTo("goodsId",goodsId);
+        example.orderBy("isDefault").desc();
+        List<Item> items = itemMapper.selectByExample(example);
+        map.put("itemList",JSON.toJSONString(items));
+        return map;
+    }
+
+    @Override
+    public List<Item> findItemByGooDsId(Long id) {
+        Example example = new Example(Item.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("goodsId",id);
+        return itemMapper.selectByExample(example);
     }
 }

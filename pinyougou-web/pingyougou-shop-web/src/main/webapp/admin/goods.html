@@ -34,18 +34,22 @@
 				<div class="pull-left">
 					<div class="form-group form-inline">
 						<div class="btn-group">
-							<button type="button" class="btn btn-default" title="新建">
-								<i class="fa fa-file-o"></i> 新建
+							<button type="button" class="btn btn-default" title="审核" ng-click="updateStatus('1')">
+								<i class="fa fa-file-o"></i> 审核
 							</button>
-							<button type="button" class="btn btn-default" title="删除">
-								<i class="fa fa-trash-o"></i> 删除
+							<button type="button" class="btn btn-default" title="驳回" ng-click="updateStatus('2')">
+								<i class="fa fa-trash-o"></i> 驳回
 							</button>
-							<button type="button" class="btn btn-default" title="上架">
+
+							<button type="button" class="btn btn-default" title="上架" ng-click="updateMarket('1')">
 								<i class="fa fa-check"></i> 上架
 							</button>
-							<button type="button" class="btn btn-default" title="下架"
+							<button type="button" class="btn btn-default" title="下架" ng-click="updateMarket('0')"
 								onclick='confirm("你确认要下架吗？")'>
 								<i class="fa fa-ban"></i> 下架
+							</button>
+							<button type="button" class="btn btn-default" title="删除" ng-click="delete()">
+								<i class="fa fa-trash-o"></i> 删除
 							</button>
 							<button type="button" class="btn btn-default" title="刷新"
 								onclick="window.location.reload();">
@@ -58,10 +62,10 @@
 					<div class="has-feedback">
 						状态：<select ng-model="searchEntity.auditStatus">
 							<option value="">全部</option>
-							<option value="0">未申请</option>
-							<option value="1">申请中</option>
-							<option value="2">审核通过</option>
-							<option value="3">已驳回</option>
+							<option value="0">未审核</option>
+							<option value="1">审核通过</option>
+							<option value="2">审核未通过</option>
+							<option value="3">关闭</option>
 						</select> 商品名称：<input ng-model="searchEntity.goodsName">
 						<button class="btn btn-default" ng-click="reload()">查询</button>
 					</div>
@@ -73,7 +77,7 @@
 					<thead>
 						<tr>
 							<th class="" style="padding-right: 0px"><input id="selall"
-								type="checkbox" class="icheckbox_square-blue"></th>
+								type="checkbox" class="icheckbox_square-blue" ></th>
 							<th class="sorting_asc">商品ID</th>
 							<th class="sorting">商品名称</th>
 							<th class="sorting">商品价格</th>
@@ -86,7 +90,7 @@
 					</thead>
 					<tbody>
 						<tr ng-repeat="entity in dataList">
-							<td><input type="checkbox"></td>
+							<td><input type="checkbox" ng-click="updateSelection($event,entity.id)"></td>
 							<td>{{entity.id}}</td>
 							<td>{{entity.goodsName}}</td>
 							<td>{{entity.price}}</td>
