@@ -5,6 +5,7 @@ import com.pinyougou.mapper.AddressMapper;
 import com.pinyougou.pojo.Address;
 import com.pinyougou.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
+import tk.mybatis.mapper.entity.Example;
 
 import java.io.Serializable;
 import java.util.List;
@@ -48,8 +49,10 @@ public class addressServiceImpl implements AddressService {
     }
 
     @Override
-    public List<Address> findAddress() {
-        addressMapper.selectAll();
-        return null;
+    public List<Address> findAddress(String sellerId) {
+        Address address = new Address();
+        address.setUserId(sellerId);
+        return addressMapper.select(address);
     }
+
 }

@@ -30,9 +30,5 @@ app.controller('userController', function($scope,$controller, baseService){
       }
   }
   
-  $scope.showName = function () {
-      baseService.sendGet("/user/login").then(function (response) {
-          $scope.loginName = response.data.loginName;
-      })
-  }
+
 });

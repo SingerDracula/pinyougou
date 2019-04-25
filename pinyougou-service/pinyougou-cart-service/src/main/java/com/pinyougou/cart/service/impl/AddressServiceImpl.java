@@ -53,7 +53,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public List<Address> findAddress() {
+    public List<Address> findAddress(String sellerId) {
         return null;
     }
 }
