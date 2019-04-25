@@ -11,11 +11,10 @@ import java.util.Map;
 @RequestMapping("/user")
 public class LoginController {
     @RequestMapping("/login")
-    public Map<String,String> login(HttpServletRequest request){
+    public String login(HttpServletRequest request){
         HashMap<String,String> map = new HashMap<>();
         /*String username = SecurityContextHolder.getContext().getAuthentication().getName();*/
         String username = request.getRemoteUser();
-        map.put("loginName",username);
-        return map;
+        return username;
     }
 }

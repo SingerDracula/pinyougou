@@ -1,9 +1,10 @@
-app.controller('addressController', function($scope,$controller, baseService){
+app.controller('addressController', function($scope,$controller,baseService){
 
     $controller('baseController', {$scope:$scope});
 
-    $scope.showAddress = function (loginName) {
-        baseService.sendGet("address/findAddress?loginName="+loginName).then(function (response) {
+    $scope.showAddress = function () {
+        alert($scope.loginName);
+        baseService.sendGet("address/findAddress?loginName="+$scope.loginName).then(function (response) {
             $scope.address = response.data;
         })
     }
