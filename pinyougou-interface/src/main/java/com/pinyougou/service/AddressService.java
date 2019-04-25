@@ -32,4 +32,6 @@ public interface AddressService {
 	List<Address> findByPage(Address address, int page, int rows);
 
     List<Address> findAddress(String sellerId);
+
+	void delmodityete(Long id);
 }

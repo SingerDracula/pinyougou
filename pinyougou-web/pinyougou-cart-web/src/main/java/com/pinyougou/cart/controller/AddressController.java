@@ -53,7 +53,7 @@ public class AddressController {
         try{
             String username = request.getRemoteUser();
             address.setUserId(username);
-            addressService.save(address);
+            addressService.save(address, username);
             return true;
         }catch (Exception e){
             e.printStackTrace();

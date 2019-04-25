@@ -226,9 +226,18 @@ $(function(){
                                         <td>{{a.address}}</td>
                                         <td>{{a.mobile}}</td>
                                         <td>
-                                            <a href="#">编辑</a>
-                                            <a href="#">删除</a>
-                                            默认地址
+											<button type="button" class="btn bg-olive btn-xs" data-toggle="modal"
+													data-target="#editModal" ng-click="show(a);">修改</button>
+											<button type="button" class="btn bg-olive btn-xs"
+													ng-click="delete(a.id);">删除
+											</button>
+											<a href="javascript:;" ng-if="a.isDefault==1"
+											   style="{{a.isDefault==1?'pointer-events:none;color:black':''}}">默认地址</a>
+											<a href="#" ng-if="a.isDefault != 1"
+											   style="{{a.isDefault==1?'pointer-events:none;color:black':''}}"
+											   ng-click="modity(a.id)">设为默认地址
+											</a>
+
                                         </td>
                                     </tr>
 
@@ -237,75 +246,66 @@ $(function(){
                             </table>                          
                         </div>
                         <!--新增地址弹出层-->
-                         <div  tabindex="-1" role="dialog" data-hasfoot="false" class="sui-modal hide fade edit" style="width:580px;">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" data-dismiss="modal" aria-hidden="true" class="sui-close">×</button>
-                                        <h4 id="myModalLabel" class="modal-title">新增地址</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="" class="sui-form form-horizontal">
-                                            <div class="control-group">
-                                            <label class="control-label">收货人：</label>
-                                            <div class="controls">
-                                                <input type="text" class="input-medium">
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">所在地区：</label>
-                                            <div class="controls">
-                                                <div data-toggle="distpicker">
-                                                <div class="form-group area">
-                                                    <select class="form-control" id="province1"></select>
-                                                </div>
-                                                <div class="form-group area">
-                                                    <select class="form-control" id="city1"></select>
-                                                </div>
-                                                <div class="form-group area">
-                                                    <select class="form-control" id="district1"></select>
-                                                </div>
-                                            </div>
-                                            </div>									 
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">详细地址：</label>
-                                            <div class="controls">
-                                                <input type="text" class="input-large">
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">联系电话：</label>
-                                            <div class="controls">
-                                                <input type="text" class="input-medium">
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">邮箱：</label>
-                                            <div class="controls">
-                                                <input type="text" class="input-medium">
-                                            </div>
-                                        </div>
-                                        <div class="control-group">
-                                            <label class="control-label">地址别名：</label>
-                                            <div class="controls">
-                                                <input type="text" class="input-medium">
-                                            </div>
-                                            <div class="othername">
-                                                建议填写常用地址：<a href="#" class="sui-btn btn-default">家里</a>　<a href="#" class="sui-btn btn-default">父母家</a>　<a href="#" class="sui-btn btn-default">公司</a>
-                                            </div>
-                                        </div>
-                                        
-                                        </form>
-                                        
-                                        
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" data-ok="modal" class="sui-btn btn-primary btn-large">确定</button>
-                                        <button type="button" data-dismiss="modal" class="sui-btn btn-default btn-large">取消</button>
-                                    </div>
-                                </div>
-                            </div>
+						<div  tabindex="-1" id="editModal" role="dialog" data-hasfoot="false" class="sui-modal hide fade edit">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" data-dismiss="modal"
+												aria-hidden="true" class="sui-close">×</button>
+										<h4 id="myModalLabel" class="modal-title">添加或修改收货地址</h4>
+									</div>
+									<div class="modal-body">
+										<form action="" class="sui-form form-horizontal">
+											<div class="control-group">
+												<label class="control-label">收货人：</label>
+												<div class="controls">
+													<input type="text" class="input-medium" ng-model="a.contact">
+												</div>
+											</div>
+
+											<div class="control-group">
+												<label class="control-label">详细地址：</label>
+												<div class="controls">
+													<input type="text" class="input-large" ng-model="a.address">
+												</div>
+											</div>
+											<div class="control-group">
+												<label class="control-label">联系电话：</label>
+												<div class="controls">
+													<input type="text" class="input-medium" ng-model="a.mobile">
+												</div>
+											</div>
+											<div class="control-group">
+												<label class="control-label">邮箱：</label>
+												<div class="controls">
+													<input type="text" class="input-medium" >
+												</div>
+											</div>
+											<div class="control-group">
+												<label class="control-label">地址别名：</label>
+												<div class="controls">
+													<input type="text" class="input-medium" ng-model="a.alias">
+												</div>
+											</div>
+											<div>
+												<div class="othername">
+													建议填写常用地址：<a href="#" class="sui-btn btn-default"
+																ng-click="add('1')">家里</a>　
+													<a href="#" class="sui-btn btn-default" ng-click="add('2')">父母家</a>　
+													<a href="#" class="sui-btn btn-default" ng-click="add('3')">公司</a>
+												</div>
+											</div>
+										</form>
+
+									</div>
+									<div class="modal-footer">
+										<button type="button" data-ok="modal"
+												class="sui-btn btn-primary btn-large" ng-click="save()">确定</button>
+										<button type="button" data-dismiss="modal"
+												class="sui-btn btn-default btn-large">取消</button>
+									</div>
+								</div>
+							</div>
 						</div>
 
                     </div>

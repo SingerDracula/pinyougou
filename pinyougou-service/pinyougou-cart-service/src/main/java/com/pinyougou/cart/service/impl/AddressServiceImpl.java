@@ -14,7 +14,7 @@ public class AddressServiceImpl implements AddressService {
     @Autowired
     private AddressMapper addressMapper;
     @Override
-    public void save(Address address) {
+    public void save(Address address, String username) {
         addressMapper.insertSelective(address);
     }
 

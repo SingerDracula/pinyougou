@@ -20,12 +20,21 @@ public class addressServiceImpl implements AddressService {
 
     @Override
     public void update(Address address) {
-
+        if(address.getNotes().equals("1")){
+            address.setNotes("家");
+        }
+        if(address.getNotes().equals("2")){
+            address.setNotes("父母家");
+        }
+        if(address.getNotes().equals("3")){
+            address.setNotes("公司");
+        }
+        addressMapper.updateByPrimaryKeySelective(address);
     }
 
     @Override
     public void delete(Serializable id) {
-
+        addressMapper.deleteByPrimaryKey(id);
     }
 
     @Override
@@ -53,6 +62,18 @@ public class addressServiceImpl implements AddressService {
         Address address = new Address();
         address.setUserId(sellerId);
         return addressMapper.select(address);
+    }
+
+    @Override
+    public void delmodityete(Long id) {
+        Address address = new Address();
+        address.setIsDefault("1");
+        Address address1 = addressMapper.selectOne(address);
+        address1.setIsDefault("0");
+        addressMapper.updateByPrimaryKeySelective(address1);
+
+        address.setId(id);
+        addressMapper.updateByPrimaryKeySelective(address);
     }
 
 }
