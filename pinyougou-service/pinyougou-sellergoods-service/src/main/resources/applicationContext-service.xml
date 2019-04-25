@@ -13,7 +13,7 @@ http://www.springframework.org/schema/context/spring-context.xsd http://code.ali
     <import resource="classpath:applicationContext-mapper.xml"/>
 
     <dubbo:application name="pinyougou-sellergoods-service"/>
-    <dubbo:registry protocol="zookeeper" address="192.168.126.200:2181"/>
+    <dubbo:registry protocol="zookeeper" address="192.168.12.131:2181"/>
     <dubbo:protocol name="dubbo" port="20880"/>
 
     <!-- 配置采用包扫描来暴露服务 -->

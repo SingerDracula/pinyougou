@@ -19,7 +19,7 @@ http://www.springframework.org/schema/data/solr/spring-solr.xsd http://www.sprin
 
 
     <dubbo:application name="pinyougou-order-service"/>
-    <dubbo:registry protocol="zookeeper" address="192.168.126.200:2181"/>
+    <dubbo:registry protocol="zookeeper" address="192.168.12.131:2181"/>
     <dubbo:protocol name="dubbo" port="20886"/>
 
     <!-- 配置采用包扫描来暴露服务 -->

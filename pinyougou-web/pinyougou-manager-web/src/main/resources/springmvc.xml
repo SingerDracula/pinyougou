@@ -34,7 +34,7 @@ http://www.springframework.org/schema/context/spring-context.xsd">
     <!-- 配置当前应用的名称 -->
     <dubbo:application name="pinyougou-manager-web"/>
     <!-- 配置 zookeeper 作为注册中心，注册服务地址 -->
-    <dubbo:registry protocol="zookeeper" address="192.168.126.200:2181"/>
+    <dubbo:registry protocol="zookeeper" address="192.168.12.131:2181"/>
     <!-- 配置采用包扫描来引用服务，产生服务接口的代理对象 -->
     <dubbo:annotation package="com.pinyougou.manager.controller"/>
 

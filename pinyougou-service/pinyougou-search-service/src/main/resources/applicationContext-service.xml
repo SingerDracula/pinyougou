@@ -19,7 +19,7 @@ http://www.springframework.org/schema/data/solr/spring-solr.xsd http://www.sprin
     <import resource="classpath:applicationContext-mapper.xml"/>
 
     <dubbo:application name="pinyougou-search-service"/>
-    <dubbo:registry protocol="zookeeper" address="192.168.126.200:2181"/>
+    <dubbo:registry protocol="zookeeper" address="192.168.12.131:2181"/>
     <dubbo:protocol name="dubbo" port="20882"/>
 
     <!-- 配置采用包扫描来暴露服务 -->
@@ -35,7 +35,7 @@ http://www.springframework.org/schema/data/solr/spring-solr.xsd http://www.sprin
     <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
     <context:component-scan base-package="com.pinyougou.search.service.impl"/>
 
-    <Solr:solr-server id="solrService" url="http://192.168.126.200:8088/solr/collection1"/>
+    <Solr:solr-server id="solrService" url="http://192.168.12.131:8088/solr/collection1"/>
 
     <bean id="solrTamplate" class="org.springframework.data.solr.core.SolrTemplate">
         <constructor-arg name="solrServer" ref="solrService"/>
