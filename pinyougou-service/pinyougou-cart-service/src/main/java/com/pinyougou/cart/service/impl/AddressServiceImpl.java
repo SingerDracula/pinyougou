@@ -14,7 +14,7 @@ public class AddressServiceImpl implements AddressService {
     @Autowired
     private AddressMapper addressMapper;
     @Override
-    public void save(Address address, String username) {
+    public void save(Address address) {
         addressMapper.insertSelective(address);
     }
 
@@ -55,5 +55,10 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public List<Address> findAddress(String sellerId) {
         return null;
+    }
+
+    @Override
+    public void delmodityete(Long id) {
+
     }
 }
