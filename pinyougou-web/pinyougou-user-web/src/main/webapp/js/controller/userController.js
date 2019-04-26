@@ -16,19 +16,7 @@ app.controller('userController', function($scope,$controller, baseService){
       })
   }
   
-  $scope.sendCode = function () {
-      if($scope.user.phone){
-          baseService.sendGet("/user/sendCode?phone="+$scope.user.phone).then(function (response) {
-              if (response.data){
-                  alert("发送成功");
-              } else {
-                  alert("发送失败");
-              }
-          })
-      }else {
-          alert("请输入手机号码");
-      }
-  }
+
   
 
 });

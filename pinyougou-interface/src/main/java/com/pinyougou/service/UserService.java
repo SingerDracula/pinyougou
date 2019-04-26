@@ -30,4 +30,10 @@ public interface UserService {
 	Boolean sendCode(String phone);
 
 	boolean checkCode(String phone, String code);
+
+    Boolean changePassword(String username, String password,String oldPassword);
+
+	User showUser(String username);
+
+	void changePhone(String phone, String remoteUser);
 }

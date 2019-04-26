@@ -25,7 +25,7 @@ http://www.springframework.org/schema/data/solr/spring-solr.xsd http://www.sprin
     <dubbo:annotation package="com.pinyougou.user.service.Impl"/>
 
     <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-        <property name="hostName" value="${redis.host}"></property>
+        <property name="hostName" value="192.168.12.131"></property>
         <property name="port" value="${redis.port}"></property>
     </bean>
 

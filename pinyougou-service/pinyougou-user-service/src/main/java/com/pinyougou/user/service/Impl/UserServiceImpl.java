@@ -93,4 +93,38 @@ public class UserServiceImpl implements UserService {
         String userCode = redisTemplate.boundValueOps(phone).get();
         return StringUtils.isNoneBlank(userCode) && userCode.equals(code);
     }
+
+    @Override
+    public Boolean changePassword(String username, String password,String oldPassword) {
+        User user1 = new User();
+        user1.setUsername(username);
+
+        User user = userMapper.selectOne(user1);
+        System.out.println(user.getPassword());
+        System.out.println(DigestUtils.md5DigestAsHex(oldPassword.getBytes()));
+        if(DigestUtils.md5DigestAsHex(oldPassword.getBytes()).equals(user.getPassword()) ){
+            user.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
+            userMapper.updateByPrimaryKey(user);
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public User showUser(String username) {
+        User user1 = new User();
+        user1.setUsername(username);
+        User user = userMapper.selectOne(user1);
+        return user;
+    }
+
+    @Override
+    public void changePhone(String phone, String remoteUser) {
+        User user = new User();
+        user.setUsername(remoteUser);
+        User user1 = userMapper.selectOne(user);
+        user1.setPhone(phone);
+        userMapper.updateByPrimaryKey(user1);
+    }
+
 }
