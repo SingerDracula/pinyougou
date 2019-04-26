@@ -5,6 +5,8 @@ import com.pinyougou.pojo.PayLog;
 
 import java.util.List;
 import java.io.Serializable;
+import java.util.Map;
+
 /**
  * OrderService 服务接口
  * @date 2019-03-27 16:06:13
@@ -36,4 +38,6 @@ public interface OrderService {
     PayLog getPayLogByRedis(String user);
 
 	void updateStatus(String outTradeNo, String transaction_id);
+
+	List<Map<String, Object>> findMyOrder(String username);
 }

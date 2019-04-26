@@ -1,6 +1,8 @@
 package com.pinyougou.order.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.pinyougou.cart.Cart;
 import com.pinyougou.common.utils.IdWorker;
 import com.pinyougou.mapper.OrderItemMapper;
@@ -15,9 +17,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
 @Service(interfaceName = "com.pinyougou.service.OrderService")
 public class OrderServiceImpl implements OrderService {
     @Autowired
@@ -40,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
             orderList.add(String.valueOf(nextId));
             Order order1 = new Order();
             order1.setOrderId(nextId);
-            order1.setUserId(order.getSellerId());
+            order1.setUserId(order.getUserId());
             order1.setPaymentType(order.getPaymentType());
             order1.setStatus("1");
             order1.setCreateTime(new Date());
@@ -135,6 +136,27 @@ public class OrderServiceImpl implements OrderService {
 
         redisTemplate.delete("payLog_"+payLog.getUserId());
 
+    }
+
+    @Override
+    public List<Map<String, Object>> findMyOrder(String username) {
+        Order order = new Order();
+        order.setUserId(username);
+        List<Order> orderList = orderMapper.select(order);
+        ArrayList arrayList = new ArrayList();
+        for (Order order1 : orderList) {
+            Map<String, Object> hashMap = new HashMap<String, Object>();
+            hashMap.put("orderTime",order1.getCreateTime());
+            hashMap.put("orderId",order1.getOrderId());
+            hashMap.put("sellerId",order1.getSellerId());
+            OrderItem orderItem = new OrderItem();
+            orderItem.setOrderId(order1.getOrderId());
+            List<OrderItem> orderItemList = orderItemMapper.select(orderItem);
+
+
+
+        }
+        return arrayList;
     }
 
 }
