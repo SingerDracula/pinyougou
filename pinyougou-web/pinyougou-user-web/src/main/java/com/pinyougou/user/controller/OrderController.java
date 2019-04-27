@@ -1,7 +1,9 @@
 package com.pinyougou.user.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.pinyougou.pojo.PayLog;
 import com.pinyougou.service.OrderService;
+import com.pinyougou.service.WeixinPayService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,8 @@ import java.util.Map;
 public class OrderController {
     @Reference(timeout = 10000)
     private OrderService orderService;
+    @Reference(timeout = 10000)
+    private WeixinPayService weixinPayService;
 
 
     @GetMapping("/showOrder")
@@ -23,5 +27,13 @@ public class OrderController {
         String username = request.getRemoteUser();
         System.out.println(orderService.findMyOrder(username));
         return orderService.findMyOrder(username);
+    }
+
+    @GetMapping("/pay")
+    public Map<String, String> pay(String orderId,Long totalMoney,HttpServletRequest request){
+        String username = request.getRemoteUser();
+        orderService.createPayLog(username,totalMoney,orderId);
+        PayLog payLog = orderService.getPayLogByRedis(username);
+        return weixinPayService.getPayCode(payLog.getOutTradeNo(), String.valueOf(payLog.getTotalFee()));
     }
 }

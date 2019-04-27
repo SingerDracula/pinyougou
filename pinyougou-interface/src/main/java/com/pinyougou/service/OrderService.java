@@ -40,4 +40,6 @@ public interface OrderService {
 	void updateStatus(String outTradeNo, String transaction_id);
 
 	List<Map<String, Object>> findMyOrder(String username);
+
+    void createPayLog(String username, Long money,String orderId);
 }

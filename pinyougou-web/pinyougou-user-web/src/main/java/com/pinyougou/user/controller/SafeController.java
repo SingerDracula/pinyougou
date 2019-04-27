@@ -48,7 +48,6 @@ public class SafeController {
             if(!vcode.equals(request.getSession().getAttribute(VerifyController.VERIFY_CODE))){
                 return  false;
             }
-            User user = userService.showUser(request.getRemoteUser());
             return userService.checkCode(phone, smsCode);
 
         }catch (Exception e){

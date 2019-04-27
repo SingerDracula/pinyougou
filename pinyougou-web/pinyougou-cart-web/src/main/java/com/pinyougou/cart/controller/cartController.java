@@ -63,7 +63,6 @@ public class cartController {
                 }
             }
 
-
         }else {
             String carts = CookieUtils.getCookieValue(request, CookieUtils.CookieName.PINYOUGOU_CART, true);
             if(StringUtils.isBlank(carts)){

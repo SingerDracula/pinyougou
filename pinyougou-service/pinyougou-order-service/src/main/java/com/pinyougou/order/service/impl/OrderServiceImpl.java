@@ -149,14 +149,30 @@ public class OrderServiceImpl implements OrderService {
             hashMap.put("orderTime",order1.getCreateTime());
             hashMap.put("orderId",order1.getOrderId());
             hashMap.put("sellerId",order1.getSellerId());
+            hashMap.put("status",order1.getStatus());
             OrderItem orderItem = new OrderItem();
             orderItem.setOrderId(order1.getOrderId());
             List<OrderItem> orderItemList = orderItemMapper.select(orderItem);
-
-
-
+            String s = JSON.toJSONString(orderItemList);
+            JSONArray array = JSONArray.parseArray(s);
+            hashMap.put("itemOrder",array);
+            arrayList.add(hashMap);
         }
         return arrayList;
+    }
+
+    @Override
+    public void createPayLog(String username, Long money,String orderId) {
+        PayLog payLog = new PayLog();
+        payLog.setOutTradeNo(String.valueOf(idWorker.nextId()));
+        payLog.setCreateTime(new Date());
+        payLog.setTotalFee(money);
+        payLog.setUserId(username);
+        payLog.setTradeState("0");
+        payLog.setPayType("1");
+        payLog.setOrderList(orderId);
+        payLogMapper.insertSelective(payLog);
+        redisTemplate.boundValueOps("payLog_"+username).set(payLog);
     }
 
 }
